@@ -19,17 +19,18 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'book_name' => $this->faker->sentence(),
-            'category_id' => Category::factory(), // ใช้ factory ของ Category แทน
-            'group_id' => Group::factory(),
-            'quantity' => $this->faker->numberBetween(1, 100),
-            'remaining_quantity' => $this->faker->numberBetween(1, 100),
-            'sold_quantity' => $this->faker->numberBetween(1, 100),
-            'price' => $this->faker->randomFloat(2, 100, 500),
-            //เพิ่มมา
-            'publisher' => $this->faker->company(), // สุ่มชื่อสำนักพิมพ์
-            'author' => $this->faker->name(), // สุ่มชื่อผู้แต่ง
-            'description' => $this->faker->paragraph(), // สุ่มคำอธิบายหนังสือ
+'book_name' => $this->faker->sentence(),
+'category_id' => Category::factory(),
+'group_id' => Group::factory(),
+'quantity' => $this->faker->numberBetween(1, 100),
+'remaining_quantity' => $this->faker->numberBetween(1, 100),
+'sold_quantity' => $this->faker->numberBetween(1, 100),
+'price' => $this->faker->randomFloat(2, 100, 500),
+'publisher' => $this->faker->company(),
+'author' => $this->faker->name(),
+'description' => $this->faker->paragraph(),
+'image' => $this->faker->imageUrl(640, 480, 'books', true, 'Faker'), // สุ่ม URL ของรูปหนังสือ
+
         ];
 
     }

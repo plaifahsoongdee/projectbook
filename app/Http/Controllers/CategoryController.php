@@ -12,7 +12,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        // ใช้ leftJoin เพื่อให้ดึงข้อมูลจาก categories โดยไม่ต้องกังวลเรื่องการไม่มีหมวดหมู่
+        $comicsMangaBooks = Book::leftJoin('categories', 'books.category_id', '=', 'categories.id')
+            ->where('categories.category_name', 'Comics & Manga')
+            ->orWhereNull('categories.id')  // ตรวจสอบกรณีที่ไม่พบ category
+            ->get(['books.id', 'books.book_name', 'books.author', 'books.price', 'books.image', 'categories.category_name']);
+
+        return inertia('Bookstore/CartoonAndManga', [
+            'books' => $comicsMangaBooks
+        ]);
     }
 
     /**

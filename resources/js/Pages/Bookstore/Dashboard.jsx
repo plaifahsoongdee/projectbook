@@ -4,6 +4,7 @@ import Swiper from "./swiper";
 import Category from "./category";
 import Books from "./Books";
 import ImageGallery from "./ImageGallery";
+import CartoonAndManga from "./CartoonAndManga";
 
 const Dashboard = () => {
   const customer = { username: "" };
@@ -14,7 +15,8 @@ const Dashboard = () => {
       <div className="container mx-auto px-4">
         <Swiper />
         <Category />
-        <Books /> {/* ดึงข้อมูลจาก API โดยตรง */}
+        <Books />
+        <CartoonAndManga />
         <ImageGallery />
       </div>
     </div>

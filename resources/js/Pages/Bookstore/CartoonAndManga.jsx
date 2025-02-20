@@ -2,10 +2,11 @@ import React, { useRef } from "react";
 import { usePage, Link } from "@inertiajs/react";
 import { ChevronLeft, ChevronRight } from "lucide-react"; // ไอคอนลูกศร
 
-const Books = () => {
+const CartoonAndManga = () => {
   const { books = [] } = usePage().props;
   const scrollRef = useRef(null); // ใช้อ้างอิง div ที่เลื่อน
 
+  // ฟังก์ชันการเลื่อน
   const scroll = (direction) => {
     if (scrollRef.current) {
       const { current } = scrollRef;
@@ -14,13 +15,20 @@ const Books = () => {
     }
   };
 
+  // ฟังก์ชันจำกัดความยาวของชื่อหนังสือ
   const limitText = (text, limit) => {
     return text.length > limit ? text.slice(0, limit) + "..." : text;
   };
 
+  // ฟังก์ชันสำหรับเรียกดูรายละเอียดหนังสือ
+  const viewBookDetails = (bookId) => {
+    // คุณสามารถเพิ่มการกระทำเมื่อคลิกหนังสือ เช่นการ redirect หรือแสดงรายละเอียด
+    console.log("View details for book with ID:", bookId);
+  };
+
   return (
     <div className="container mx-auto p-4 relative">
-      <h2 className="text-2xl font-bold mb-4">หนังสือแนะนำ</h2>
+      <h2 className="text-2xl font-bold mb-4">หนังสือหมวด Comics & Manga</h2>
 
       {/* ปุ่มเลื่อนซ้าย */}
       <button
@@ -38,7 +46,11 @@ const Books = () => {
               books.map((book) => (
                 <div key={book.id} className="w-44 min-w-[180px] flex flex-col justify-between">
                   {/* รูปภาพหนังสือ */}
-                  <Link href={route('books.show', book.id)} className="text-[#BA7D66] text-sm font-semibold mt-2">
+                  <Link
+                    href={route('books.show', book.id)}
+                    className="text-[#BA7D66] text-sm font-semibold mt-2"
+                    onClick={() => viewBookDetails(book.id)}  // เรียกใช้ฟังก์ชัน viewBookDetails เมื่อคลิก
+                  >
                     <img
                       src={book.image ? book.image : "/storage/image/book13.jpg"}
                       onError={(e) => { e.target.src = "/storage/image/book13.jpg"; }}
@@ -53,16 +65,18 @@ const Books = () => {
                       {limitText(book.book_name, 30)} {/* จำกัดความยาวของชื่อหนังสือ */}
                     </h3>
                     <p className="text-xs text-gray-500 truncate">{book.author || "ไม่ระบุผู้แต่ง"}</p>
+                    {/* แสดงหมวดหมู่หรือข้อความ "ไม่ระบุหมวดหมู่" */}
+                    <p className="text-xs text-gray-500 truncate">{book.category ? book.category.category_name : "ไม่ระบุหมวดหมู่"}</p>
                   </div>
 
                   {/* ราคา */}
-                  <div className="mt-2 text-[#BA7D66] font-bold text-lg ">
+                  <div className="mt-2 text-[#BA7D66] font-bold text-lg text-center">
                     ฿{parseFloat(book.price).toFixed(2)}
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500">ไม่มีข้อมูลหนังสือ</p>
+              <p className="text-gray-500">ไม่มีข้อมูลหนังสือในหมวด Comics & Manga</p>
             )}
           </div>
         </div>
@@ -87,4 +101,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default CartoonAndManga;

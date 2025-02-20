@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 
 class BookController extends Controller
@@ -13,13 +14,15 @@ class BookController extends Controller
      */
 
      public function index()
-     {
-         // ดึงข้อมูลหนังสือทั้งหมดพร้อมข้อมูลที่เชื่อมโยง
-          $books = Book::with(['category', 'rentals', 'payments'])->get();  // ใช้ get() แทน all()
+    {
+        // ดึงข้อมูลหนังสือที่มี
+        $books = Book::all(['id', 'book_name', 'author', 'price', 'image']); // เลือกคอลัมน์ที่จำเป็น
+        return inertia('Bookstore/Books', [
+            'books' => $books
+        ]);
+    }
 
-         // ส่งข้อมูลหนังสือทั้งหมดในรูปแบบ JSON
-         return response()->json($books);
-     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -42,9 +45,11 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        // ดึงข้อมูลหนังสือที่เลือกมาแสดง
+        return inertia('Bookstore/Detail', [
+            'book' => $book
+        ]);
     }
-
     /**
      * Show the form for editing the specified resource.
      */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -38,6 +39,8 @@ class HandleInertiaRequests extends Middleware
                 'success' => $request->session()->get('success') ?? null,
                 'error' => $request->session()->get('error') ?? null,
                 ],
+            'books' => DB::table('books')->select('id', 'book_name', 'image', 'price', 'author')->take(10)->get(),
+
         ];
     }
 }
