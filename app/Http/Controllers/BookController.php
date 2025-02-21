@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Group;
+use Inertia\Inertia;
 
 
 class BookController extends Controller
@@ -21,6 +23,17 @@ class BookController extends Controller
             'books' => $books
         ]);
     }
+
+    public function highlight()
+{
+    // ดึงหนังสือทั้งหมด
+    $books = Book::limit(10)->get(['id', 'book_name', 'author', 'price', 'image']);
+
+    return inertia('Bookstore/Highlight', [
+        'books' => $books,
+        'categoryName' => "หนังสือทั้งหมด"
+    ]);
+}
 
 
 

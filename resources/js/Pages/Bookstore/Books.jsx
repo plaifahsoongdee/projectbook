@@ -70,10 +70,11 @@ const Books = () => {
 
       {/* ปุ่มดูทั้งหมด */}
       <div className="absolute top-0 right-0 mr-4 mt-2">
-        <button className="inline-flex items-center text-[#BA7D66] hover:text-[#9e6e51] text-sm font-semibold">
-          ดูทั้งหมด
-          <ChevronRight size={16} className="ml-1" />
-        </button>
+      <Link href={route('highlight.index')} className="inline-flex items-center text-[#BA7D66] hover:text-[#9e6e51] text-sm font-semibold">
+    ดูทั้งหมด
+    <ChevronRight size={16} className="ml-1" />
+    </Link>
+
       </div>
 
       {/* ปุ่มเลื่อนขวา */}

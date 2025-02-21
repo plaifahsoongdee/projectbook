@@ -9,6 +9,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BookController;
 
 
+Route::get('/highlight', [BookController::class, 'highlight'])->name('highlight.index');
+
 Route::get('/book/{book}', [BookController::class, 'show'])->name('books.show');
 
 // Route::get('/books', [BookController::class, 'index']);

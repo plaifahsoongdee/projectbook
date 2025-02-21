@@ -1,40 +1,63 @@
 import React from "react";
 import { usePage } from "@inertiajs/react";
+import Navbar from "./Navbar"; // เรียกใช้ Navbar
 
 const Detail = () => {
   const { book } = usePage().props;
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold mb-4">{book.book_name}</h2>
-      <div className="flex space-x-6">
-        {/* รูปภาพหนังสือ */}
-        <div className="w-1/3">
-          <img
-            src={book.image ? book.image : "/storage/image/book13.jpg"}
-            alt={book.book_name}
-            className="w-full h-auto object-cover rounded-md"
-          />
-        </div>
+    <div className="bg-gray-100 min-h-screen">
+      {/* Navbar */}
+      <Navbar />
 
-        {/* รายละเอียดหนังสือ */}
-        <div className="w-2/3">
-          <h3 className="text-xl font-bold mb-2">ข้อมูลหนังสือ</h3>
-          <p className="text-md mb-4">{book.author || "ไม่ระบุผู้แต่ง"}</p>
-          <p className="text-md mb-4">{book.description || "ไม่มีคำอธิบาย"}</p>
-          <div className="text-lg font-bold text-[#BA7D66] mb-4">
-            ฿{parseFloat(book.price).toFixed(2)}
+      <div className="container mx-auto p-6">
+        {/* กล่องหลัก */}
+        <div className="flex flex-col md:flex-row bg-white shadow-2xl rounded-lg p-6">
+          {/* รูปภาพหนังสือ */}
+          <div className="w-full md:w-1/4 flex justify-center items-center">
+            <img
+              src={book.image ? book.image : "/storage/image/book13.jpg"}
+              onError={(e) => { e.target.src = "/storage/image/book13.jpg"; }}
+              alt={book.book_name}
+              className="w-150 h-auto object-cover rounded-lg shadow-lg"
+            />
+          </div>
+
+          {/* รายละเอียดหนังสือ */}
+          <div className="w-full md:w-3/4 md:pl-8 mt-6 md:mt-0">
+            <h2 className="text-2xl font-bold text-gray-800">{book.book_name}</h2>
+            {/* <h3 className="text-lg font-semibold text-gray-600 mt-2">ข้อมูลหนังสือ</h3> */}
+            <p className="text-md text-gray-700 mt-1">{book.author || "ไม่ระบุผู้แต่ง"}</p>
+            <p className="text-gray-500 text-sm mt-3">{book.description || "ไม่มีคำอธิบาย"}</p>
+
+            {/* เส้นแบ่ง */}
+            <div className="border-t border-gray-300 mt-4 pt-4">
+              {/* ราคา */}
+              <span className="text-2xl font-bold text-[#BA7D66]">
+                ฿{parseFloat(book.price).toFixed(2)}
+              </span>
+            </div>
+
+            {/* ปุ่มเช่า */}
+            <div className="mt-6 flex flex-col items-start space-y-4">
+              <button
+                className="bg-[#BA7D66] hover:bg-[#9a5d4c] hover:bg-opacity-80 text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-300 transform hover:scale-105"
+              >
+                เช่า
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      {/* ปุ่มกลับ */}
-      <div className="mt-4">
-        <button
-          onClick={() => window.history.back()}
-          className="bg-[#BA7D66] text-white py-2 px-4 rounded-full"
-        >
-          กลับ
-        </button>
+
+        {/* ปุ่มกลับ */}
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={() => window.history.back()}
+            className="bg-[#BA7D66] hover:bg-[#9a5d4c] hover:bg-opacity-80 text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-300 transform hover:scale-105"
+          >
+            กลับ
+          </button>
+        </div>
       </div>
     </div>
   );
